@@ -53,74 +53,40 @@ public class Game1Ctrl : MonoBehaviour
     double CreateExp(Text exp)
     {
         var numbers = new double[n];
-        var signPrev = "";
+        var signPrev = true;
         var signs = new string[] { " + ", " - ", " / ", " * " };
-        string sign;
-        var secret = 0.0;
+        string sign = "";
+        var example = new System.Text.StringBuilder();
         for (var i = 0; i < n; i++)
         {
             numbers[i] = System.Math.Round(Random.Range(1, max) * k, 1);
             if (i > 0)
             {
-                if (signPrev != " * " && signPrev != " / ")
+                if (signPrev)
                 {
                     if (numbers[i - 1] == 1 && numberSigns > 2)
-                        sign = signs[Random.Range(0, 2)];
+                        example.Append(signs[Random.Range(0, 2)]);
                     else
+                    {
                         sign = signs[Random.Range(0, numberSigns)];
+                        if (sign == signs[2] || sign == signs[3])
+                            signPrev = false;
+                    }
+
                     numbers[i] = System.Math.Round(Random.Range(2, max) * k, 1);
                 }
                 else
-                    sign = signs[Random.Range(0, 2)];               
-                exp.text += sign;
-                switch (sign)
                 {
-                    case " + ":
-                        numbers[0] += numbers[i];
-                        break;
-                    case " - ":
-                        numbers[0] -= numbers[i];
-                        break;
-                    case " * ":
-                        secret = numbers[i - 1] * numbers[i];
-                        switch (signPrev)
-                        {
-                            case " + ":
-                                numbers[0] -= numbers[i - 1];
-                                numbers[0] += secret;
-                                break;
-                            case " - ":
-                                numbers[0] += numbers[i - 1];
-                                numbers[0] -= secret;
-                                break;
-                            default:
-                                numbers[0] = secret;
-                                break;
-                        }
-                        break;
-                    case " / ":
-                        secret = numbers[i - 1] / numbers[i];
-                        switch (signPrev)
-                        {
-                            case " + ":
-                                numbers[0] -= numbers[i - 1];
-                                numbers[0] += secret;
-                                break;
-                            case " - ":
-                                numbers[0] += numbers[i - 1];
-                                numbers[0] -= secret;
-                                break;
-                            default:
-                                numbers[0] = secret;
-                                break;
-                        }
-                        break;
+                    sign = signs[Random.Range(0, 2)];
+                    signPrev = true;
                 }
-                signPrev = sign;
-            }
-            exp.text += numbers[i].ToString();
+                example.Append(sign);
+            }   
+            example.Append(numbers[i].ToString());
         }
-        return numbers[0];
+        
+        exp.text = example.ToString();
+        return Calculate.ToCalculate(example.ToString());
     }
 
     void PlayerLose()
