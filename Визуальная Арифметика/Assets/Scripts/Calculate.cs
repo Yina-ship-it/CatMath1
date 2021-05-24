@@ -1,135 +1,129 @@
-using System.Collections;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
 
 public class Calculate : MonoBehaviour
 {
     static public double ToCalculate(string input)
     {
-        string output = GetExpression(input);
-        double result = Counting(output);
+        var output = input.Split(' ').ToList();
+        double result = Resh(output, 0);
 
         return result;
     }
-    static private string GetExpression(string input)
+    private static double Resh(List<string> list, byte priority)
     {
-        string output = string.Empty;
-        Stack<char> operStack = new Stack<char>();
-
-        for (int i = 0; i < input.Length; i++)
+        double sum = 0;
+        if (priority == 0)
         {
-            if (IsDelimeter(input[i]))
-                continue;
-
-            if (Char.IsDigit(input[i]))
+            for (int i = 0; i < list.Count; i++)
             {
-                while (!IsDelimeter(input[i]) && !IsOperator(input[i]))
+                if (list[i][0] == '(')
                 {
-                    output += input[i]; 
-                    i++;
-
-                    if (i == input.Length) break;
-                }
-
-                output += " ";
-                i--;
-            }
-
-            if (IsOperator(input[i]))
-            {
-                if (input[i] == '(')
-                    operStack.Push(input[i]);
-                else
-                if (input[i] == ')')
-                {
-                    char s = operStack.Pop();
-
-                    while (s != '(')
-                    {
-                        output += s.ToString() + ' ';
-                        s = operStack.Pop();
-                    }
-                }
-                else
-                {
-                    if (operStack.Count > 0)
-                        if (GetPriority(input[i]) <= GetPriority(operStack.Peek()))
-                            output += operStack.Pop().ToString() + " ";
-                    operStack.Push(char.Parse(input[i].ToString()));
+                    list[i] = list[i].Substring(1);
+                    int j = 1;
+                    while (list[j][list[j].Length - 1] != ')')
+                        j++;
+                    var listf = new string[j - i + 1];
+                    list.CopyTo(i, listf, 0, j - i + 1);
+                    double vrem = Resh(listf.ToList(), 1);
+                    j = 1;
+                    while (list[j][list[j].Length - 1] != ')')
+                        j++;
+                    list[i] = vrem.ToString();
+                    list.RemoveRange(i + 1, j - i);
                 }
             }
+            priority++;
         }
-
-        while (operStack.Count > 0)
-            output += operStack.Pop() + " ";
-
-        return output;
-    }
-    static private double Counting(string input)
-    {
-        double result = 0;
-        Stack<double> temp = new Stack<double>();
-
-        for (int i = 0; i < input.Length; i++)
+        if (priority == 1)
         {
-            if (Char.IsDigit(input[i]))
+            for (int i = 1; i < list.Count; i++)
             {
-                string a = string.Empty;
-
-                while (!IsDelimeter(input[i]) && !IsOperator(input[i]))
+                double vrem;
+                switch (list[i][list[i].Length - 1])
                 {
-                    a += input[i];
-                    i++;
-                    if (i == input.Length) break;
+                    case '*':
+                        var listf = new string[3];
+                        list.CopyTo(i - 1, listf, 0, 3);
+                        vrem = Calc(listf.ToList(), 0);
+                        sum = vrem;
+                        list[i - 1] = vrem.ToString();
+                        list.RemoveRange(i, 2);
+                        i--;
+                        break;
+                    case '/':
+                        var listfm = new string[3];
+                        list.CopyTo(i - 1, listfm, 0, 3);
+                        vrem = Calc(listfm.ToList(), 1);
+                        sum = vrem;
+                        list[i - 1] = vrem.ToString();
+                        list.RemoveRange(i, 2);
+                        i--;
+                        break;
                 }
-                temp.Push(double.Parse(a));
-                i--;
-            }
-            else if (IsOperator(input[i]))
-            {
-                double a = temp.Pop();
-                double b = temp.Pop();
 
-                switch (input[i])
-                {
-                    case '+': result = b + a; break;
-                    case '-': result = b - a; break;
-                    case '*': result = b * a; break;
-                    case '/': result = b / a; break;
-                    case '^': result = double.Parse(Math.Pow(double.Parse(b.ToString()), double.Parse(a.ToString())).ToString()); break;
-                }
-                temp.Push(result);
             }
+            priority++;
         }
-        return temp.Peek();
-    }
-    static private bool IsDelimeter(char c)
-    {
-        if ((" =".IndexOf(c) != -1))
-            return true;
-        return false;
+        if (priority == 2)
+            for (int i = 1; i < list.Count; i++)
+            {
+                double vrem;
+                switch (list[i][list[i].Length - 1])
+                {
+                    case '+':
+                        var listf = new string[3];
+                        list.CopyTo(i - 1, listf, 0, 3);
+                        vrem = Calc(listf.ToList(), 2);
+                        list[i - 1] = vrem.ToString();
+                        list.RemoveRange(i, 2);
+                        sum = vrem;
+                        i--;
+                        break;
+                    case '-':
+                        var listfm = new string[3];
+                        list.CopyTo(i - 1, listfm, 0, 3);
+                        vrem = Calc(listfm.ToList(), 3);
+                        list[i - 1] = vrem.ToString();
+                        list.RemoveRange(i, 2);
+                        sum = vrem;
+                        i--;
+                        break;
+                }
+            }
+        return sum;
     }
 
-    static private bool IsOperator(char ñ)
+    static double Calc(List<string> list, byte op)
     {
-        if (("+-/*^()".IndexOf(ñ) != -1))
-            return true;
-        return false;
-    }
-
-    static private byte GetPriority(char s)
-    {
-        switch (s)
+        double sum = 0;
+        switch (op)
         {
-            case '(': return 0;
-            case ')': return 1;
-            case '+': return 2;
-            case '-': return 3;
-            case '*': return 4;
-            case '/': return 4;
-            case '^': return 5;
-            default: return 6;
+            case 0:
+                if (list[2][list[2].Length - 1] == ')')
+                    list[2] = list[2].Substring(0, list[2].Length - 1);
+                sum = double.Parse(list[0]) * double.Parse(list[2]);
+                break;
+            case 1:
+                if (list[2][list[2].Length - 1] == ')')
+                    list[2] = list[2].Substring(0, list[2].Length - 1);
+                sum = double.Parse(list[0]) / double.Parse(list[2]);
+                break;
+            case 2:
+                if (list[2][list[2].Length - 1] == ')')
+                    list[2] = list[2].Substring(0, list[2].Length - 1);
+                sum = double.Parse(list[0]) + double.Parse(list[2]);
+                break;
+            case 3:
+
+                if (list[2][list[2].Length - 1] == ')')
+                    list[2] = list[2].Substring(0, list[2].Length - 1);
+                sum = double.Parse(list[0]) - double.Parse(list[2]);
+
+                break;
         }
+        return sum;
     }
 }
