@@ -18,6 +18,14 @@ public class Game1Ctrl : MonoBehaviour
     [HideInInspector] public bool next, lose;
     [HideInInspector] public int sign;
 
+
+    private void Awake()
+    {
+        n = DataHolder.N;
+        max = DataHolder.Max;
+        numberSigns = DataHolder.NumberSigns;
+        k = DataHolder.k;
+    }
     void Start()
     {
         canvas = GameObject.Find("Canvas");

@@ -20,6 +20,13 @@ public class Game2Ctrl : MonoBehaviour
     [HideInInspector] public int CorrectAnswerID;
     [HideInInspector] public bool next, lose;
 
+    private void Awake()
+    {
+        timeRemember = DataHolder.timeRemember;
+        maxNumber = DataHolder.maxNumber;
+        numbers = DataHolder.numbers;
+    }
+
     void Start()
     {
         back = GameObject.Find("Back");
