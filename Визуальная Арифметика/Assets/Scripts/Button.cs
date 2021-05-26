@@ -80,7 +80,7 @@ public class Button : MonoBehaviour
                 DataHolder.k = 1;
                 break;
             case 3:
-                DataHolder.N = 5;
+                DataHolder.N = 6;
                 DataHolder.Max = 2000;
                 DataHolder.NumberSigns = 4;
                 DataHolder.k = 0.1;
