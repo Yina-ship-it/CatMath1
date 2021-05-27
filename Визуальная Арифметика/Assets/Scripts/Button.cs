@@ -15,6 +15,7 @@ public class Button : MonoBehaviour
     {
         eventSystem = GameObject.Find("EventSystem");
         canvas = GameObject.Find("Canvas");
+
     }
 
     public void NextScene(int sceneNumber)
@@ -38,9 +39,27 @@ public class Button : MonoBehaviour
         DataHolder.Game = Game;
     }
 
+    public void PrefabDestroy(string prefab)
+    {
+        Prefab = GameObject.Find(prefab);
+        Destroy(Prefab);
+    }
 
-
-
+    public void Explanations()
+    {
+        Prefab = Instantiate(DifficPrefab);
+        Prefab.transform.SetParent(canvas.transform);
+        Prefab.transform.localScale = new Vector2(1f, 1f);
+        switch (DataHolder.Game)
+        {
+            case 1:
+                GameObject.Find("Text").GetComponent<Text>().text = "ЧТото на русском для первого режима";
+                break;
+            case 2:
+                GameObject.Find("Text").GetComponent<Text>().text = "ЧТото на русском для второго режима";
+                break;
+        }
+    }
     public void OnClickAnswerGame2(int id)
     {
         if (eventSystem.GetComponent<Game2Ctrl>().CorrectAnswerID == id)
