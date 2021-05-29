@@ -43,10 +43,7 @@ public class Game1Ctrl : MonoBehaviour
         else if (next)
             NextExp();
         else if (lose)
-        {
             PlayerLose();
-            lose = false;
-        }
     }
 
     void NextExp()
