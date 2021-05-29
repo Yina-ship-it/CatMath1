@@ -10,4 +10,7 @@ public static class DataHolder
     public static float timeRemember;
     public static int maxNumber;
     public static int numbers;
+
+    public static bool pauseTimer;
+    public static int Score;
 }

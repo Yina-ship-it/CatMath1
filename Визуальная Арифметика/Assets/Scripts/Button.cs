@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Button : MonoBehaviour
 {
-    public GameObject DifficPrefab;
+    [Tooltip("Всё что угодно: панели, объекты, префабы")] public GameObject gameObjects;
     [HideInInspector] private GameObject eventSystem;
     [HideInInspector] private GameObject Prefab;
     [HideInInspector] private GameObject canvas;
@@ -30,9 +30,21 @@ public class Button : MonoBehaviour
         else
             eventSystem.GetComponent<Game1Ctrl>().lose = true;
     }
+
+    public void OnClickPause(bool timer)
+    {      
+
+        DataHolder.pauseTimer = timer;
+        if(timer)
+            GameObject.Find("Timer").GetComponent<Timer>().pause = true;
+        Prefab = Instantiate(gameObjects);
+        Prefab.transform.SetParent(canvas.transform);
+        Prefab.transform.localScale = new Vector2(1f, 1f);
+    }
+
     public void Select(int Game)
     {
-        Prefab = Instantiate(DifficPrefab);
+        Prefab = Instantiate(gameObjects);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
 
@@ -47,7 +59,7 @@ public class Button : MonoBehaviour
 
     public void Explanations()
     {
-        Prefab = Instantiate(DifficPrefab);
+        Prefab = Instantiate(gameObjects);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
         switch (DataHolder.Game)

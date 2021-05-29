@@ -3,6 +3,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public float time;
+    [HideInInspector]public bool pause;
     private float dtime;
     void Start()
     {
@@ -12,10 +13,13 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        dtime = Time.deltaTime / time;
-        GetComponent<Image>().fillAmount -= dtime;
-        GetComponent<Image>().color += new Color(dtime / 2, -dtime / 2, -dtime / 2);
-        if (GetComponent<Image>().fillAmount == 0f)
-            GameObject.Find("EventSystem").GetComponent<Game1Ctrl>().lose = true;
+        if (!pause)
+        {
+            dtime = Time.deltaTime / time;
+            GetComponent<Image>().fillAmount -= dtime;
+            GetComponent<Image>().color += new Color(dtime / 2, -dtime / 2, -dtime / 2);
+            if (GetComponent<Image>().fillAmount == 0f)
+                GameObject.Find("EventSystem").GetComponent<Game1Ctrl>().lose = true;
+        }
     }
 }

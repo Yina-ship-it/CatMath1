@@ -30,6 +30,7 @@ public class Game1Ctrl : MonoBehaviour
     {
         canvas = GameObject.Find("Canvas");
         count = 0;
+        DataHolder.Score = count;
         next = false;
         lose = false;
         sign = CreateExp(FirstExp).CompareTo(CreateExp(SecondExp));
@@ -50,6 +51,7 @@ public class Game1Ctrl : MonoBehaviour
         FirstExp.text = "";
         SecondExp.text = "";
         count++;
+        DataHolder.Score = count;
         score.text = count.ToString();
         var firstE = CreateExp(FirstExp);
         var secondE = CreateExp(SecondExp);
@@ -102,6 +104,6 @@ public class Game1Ctrl : MonoBehaviour
         Prefab = Instantiate(VashPrefab);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
-        Prefab.GetComponent<WindowLoseScript>().score = count;
+        GameObject.Find("Timer").GetComponent<Image>().fillAmount = 0;
     }
 }

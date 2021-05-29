@@ -32,6 +32,7 @@ public class Game2Ctrl : MonoBehaviour
         back = GameObject.Find("Back");
         canvas = GameObject.Find("Canvas");
         count = 0;
+        DataHolder.Score = count;
         next = false;
         lose = false;
         back.SetActive(false);
@@ -54,6 +55,7 @@ public class Game2Ctrl : MonoBehaviour
     private void NextExp()
     {
         count++;
+        DataHolder.Score = count;
         score.text = count.ToString();
         StartCoroutine(CreateExp());
         next = false;
@@ -139,6 +141,5 @@ public class Game2Ctrl : MonoBehaviour
         Prefab = Instantiate(VashPrefab);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
-        Prefab.GetComponent<WindowLoseScript>().score = count;
     }
 }
