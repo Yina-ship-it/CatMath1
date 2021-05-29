@@ -5,10 +5,23 @@ using UnityEngine.SceneManagement;
 public class WindowLoseScript : MonoBehaviour
 {
     public Text Score;
+    public Text Record;
 
     void Start()
     {
-        Score.text = DataHolder.Score.ToString();
+        int score = DataHolder.Score;
+        int record = PlayerPrefs.GetInt(DataHolder.Game.ToString());
+        if (score > record)
+        {
+            PlayerPrefs.SetInt(DataHolder.Game.ToString(), score);
+            Score.text = "Новый Рекорд\n" + score.ToString();
+        }
+        else
+        {
+            Score.text = score.ToString();
+            Record.text = "Рекорд: " + PlayerPrefs.GetInt(DataHolder.Game.ToString()).ToString();
+        }
+
     }
     public void RestartScene()
     {

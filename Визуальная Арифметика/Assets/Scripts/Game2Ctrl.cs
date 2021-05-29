@@ -18,7 +18,7 @@ public class Game2Ctrl : MonoBehaviour
     [HideInInspector] private int count;
     [HideInInspector] private GameObject Prefab;
     [HideInInspector] public int CorrectAnswerID;
-    [HideInInspector] public bool next, lose;
+    [HideInInspector] public bool next, lose, update;
 
     private void Awake()
     {
@@ -35,20 +35,18 @@ public class Game2Ctrl : MonoBehaviour
         DataHolder.Score = count;
         next = false;
         lose = false;
+        update = true;
         back.SetActive(false);
         StartCoroutine(TimeDelay());
     }
     void Update()
     {
-        if (next)
-        {
+        if (!update)
+            return;
+        else if (next)
             NextExp();
-        }
         else if (lose)
-        {
             PlayerLose();
-            lose = false;
-        }
 
     }
 
@@ -138,6 +136,7 @@ public class Game2Ctrl : MonoBehaviour
 
     void PlayerLose()
     {
+        update = false;
         Prefab = Instantiate(VashPrefab);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);

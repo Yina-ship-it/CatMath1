@@ -140,4 +140,9 @@ public class Button : MonoBehaviour
                 break;
         }
     }
+
+    public void DeleteRwcord()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }

@@ -15,7 +15,7 @@ public class Game1Ctrl : MonoBehaviour
     [HideInInspector] public GameObject canvas;
     [HideInInspector] private int count;
     [HideInInspector] private GameObject Prefab;
-    [HideInInspector] public bool next, lose;
+    [HideInInspector] public bool next, lose, update;
     [HideInInspector] public int sign;
 
 
@@ -33,11 +33,14 @@ public class Game1Ctrl : MonoBehaviour
         DataHolder.Score = count;
         next = false;
         lose = false;
+        update = true;
         sign = CreateExp(FirstExp).CompareTo(CreateExp(SecondExp));
     }
     void Update()
     {
-        if (next)
+        if (!update) 
+            return;
+        else if (next)
             NextExp();
         else if (lose)
         {
@@ -101,6 +104,7 @@ public class Game1Ctrl : MonoBehaviour
 
     void PlayerLose()
     {
+        update = false;
         Prefab = Instantiate(VashPrefab);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);

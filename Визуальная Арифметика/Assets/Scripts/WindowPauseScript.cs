@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 public class WindowPauseScript : MonoBehaviour
 {
     public Text Score;
+    public Text Record;
     void Start()
     {
         Score.text = DataHolder.Score.ToString();
+        Record.text = "Рекорд: " + PlayerPrefs.GetInt(DataHolder.Game.ToString()).ToString();
     }
 
     public void OnClickResume()
