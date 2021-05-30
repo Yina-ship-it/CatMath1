@@ -11,7 +11,7 @@ public class WindowLoseScript : MonoBehaviour
     {
         int score = DataHolder.Score;
         int record = PlayerPrefs.GetInt(DataHolder.Game.ToString());
-            if (score > record)
+        if (score > record)
         {
             PlayerPrefs.SetInt(DataHolder.Game.ToString(), score);
             Score.text = DataHolder.languageText[PlayerPrefs.GetInt("Language"), 4] + score.ToString();
