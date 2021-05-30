@@ -69,7 +69,15 @@ public class Button : MonoBehaviour
         Prefab = Instantiate(gameObjects);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
-        GameObject.Find("Text").GetComponent<Text>().text = DataHolder.languageText[PlayerPrefs.GetInt("Language"), DataHolder.Game - 1];
+        switch (DataHolder.Game)
+        {
+            case 1:
+                GameObject.Find("Text").GetComponent<Text>().text = "ЧТото на русском для первого режима";
+                break;
+            case 2:
+                GameObject.Find("Text").GetComponent<Text>().text = "ЧТото на русском для второго режима";
+                break;
+        }
     }
     public void OnClickAnswerGame2(int id)
     {
