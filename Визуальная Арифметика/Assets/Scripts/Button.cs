@@ -20,13 +20,17 @@ public class Button : MonoBehaviour
 
     public void NextScene(int sceneNumber)
     {
+        PlaySound();
         SceneManager.LoadScene(sceneNumber);
     }
 
     public void OnClickAnswerGame1(int id)
     {
         if (eventSystem.GetComponent<Game1Ctrl>().sign == id)
+        {
             eventSystem.GetComponent<Game1Ctrl>().next = true;
+            eventSystem.GetComponent<AudioSource>().Play();
+        }
         else
             eventSystem.GetComponent<Game1Ctrl>().lose = true;
     }
@@ -44,6 +48,7 @@ public class Button : MonoBehaviour
 
     public void Select(int Game)
     {
+        PlaySound();
         Prefab = Instantiate(gameObjects);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
@@ -53,12 +58,14 @@ public class Button : MonoBehaviour
 
     public void PrefabDestroy(string prefab)
     {
+        PlaySound();
         Prefab = GameObject.Find(prefab);
         Destroy(Prefab);
     }
 
     public void Explanations()
     {
+        PlaySound();
         Prefab = Instantiate(gameObjects);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
@@ -67,12 +74,16 @@ public class Button : MonoBehaviour
     public void OnClickAnswerGame2(int id)
     {
         if (eventSystem.GetComponent<Game2Ctrl>().CorrectAnswerID == id)
+        {
             eventSystem.GetComponent<Game2Ctrl>().next = true;
+            eventSystem.GetComponent<AudioSource>().Play();
+        }
         else
             eventSystem.GetComponent<Game2Ctrl>().lose = true;
     }
     public void Difficulty(int difficulty)
     {
+        PlaySound();
         switch (DataHolder.Game)
         {
             case 1:
@@ -133,6 +144,11 @@ public class Button : MonoBehaviour
         }
     }
 
+    private void PlaySound()
+    {
+        if (PlayerPrefs.GetInt("Sound") == 0)
+            GameObject.Find("Click Audio").GetComponent<AudioSource>().Play();
+    }
     public void DeleteRwcord()
     {
         PlayerPrefs.DeleteAll();
