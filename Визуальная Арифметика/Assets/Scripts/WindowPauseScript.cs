@@ -4,18 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class WindowPauseScript : MonoBehaviour
 {
-    public Text Score;
-    public Text Record;
-    void Start()
+    public void Start()
     {
-        Score.text = DataHolder.Score.ToString();
-        Record.text = "Рекорд: " + PlayerPrefs.GetInt(DataHolder.Game.ToString()).ToString();
+        GameObject.Find("Pause").SetActive(false);
     }
-
     public void OnClickResume()
     {
         if (DataHolder.pauseTimer)
             GameObject.Find("Timer").GetComponent<Timer>().pause = false;
+        GameObject.Find("Pause").SetActive(true);
         Destroy(gameObject);
     }
 

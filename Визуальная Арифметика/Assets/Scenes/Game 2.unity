@@ -378,6 +378,7 @@ MonoBehaviour:
   CorrectAnswerID: 0
   next: 0
   lose: 0
+  update: 0
 --- !u!1 &391580509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,7 +1393,7 @@ GameObject:
   - component: {fileID: 1622390472}
   - component: {fileID: 1622390471}
   m_Layer: 5
-  m_Name: Back
+  m_Name: Pause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1414,8 +1415,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 80, y: 56}
+  m_AnchoredPosition: {x: 20, y: -40}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!95 &1622390471
 Animator:
@@ -1512,7 +1513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 495012bef77be314fbd601fdb7bcc1e1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44abcba80c1153b4bbbbe97546c92101, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

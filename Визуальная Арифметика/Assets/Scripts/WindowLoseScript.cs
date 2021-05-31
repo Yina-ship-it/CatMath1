@@ -7,21 +7,27 @@ public class WindowLoseScript : MonoBehaviour
     public Text Score;
     public Text Record;
 
-    void Start()
+    private void Start()
     {
+        GameObject.Find("Pause").SetActive(false);
         int score = DataHolder.Score;
-        int record = PlayerPrefs.GetInt(DataHolder.Game.ToString());
+        string key = "Game" + (DataHolder.Game * 3 + PlayerPrefs.GetInt("Difficulty")).ToString();
+        if (!PlayerPrefs.HasKey(key))
+            PlayerPrefs.SetInt(key, 0);
+        int record = PlayerPrefs.GetInt(key);
+
         if (score > record)
         {
-            PlayerPrefs.SetInt(DataHolder.Game.ToString(), score);
-            Score.text = DataHolder.languageText[PlayerPrefs.GetInt("Language"), 4] + score.ToString();
+
+            PlayerPrefs.SetInt(key, score);
+            Record.text = DataHolder.languageText[PlayerPrefs.GetInt("Language"), 4];
+            Score.text = score.ToString();
         }
         else
         {
             Score.text = score.ToString();
-            Record.text = DataHolder.languageText[PlayerPrefs.GetInt("Language"), 5] + PlayerPrefs.GetInt(DataHolder.Game.ToString()).ToString();
+            Record.text = DataHolder.languageText[PlayerPrefs.GetInt("Language"), 5] + PlayerPrefs.GetInt(key).ToString();
         }
-
     }
     public void RestartScene()
     {

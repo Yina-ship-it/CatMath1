@@ -62,40 +62,83 @@ public class Game1Ctrl : MonoBehaviour
 
     double CreateExp(Text exp)
     {
-        var numbers = new double[n];
-        var signPrev = true;
-        var signs = new string[] { " + ", " - ", " / ", " * " };
-        string sign = "";
         var example = new System.Text.StringBuilder();
-        for (var i = 0; i < n; i++)
-        {
-            numbers[i] = System.Math.Round(Random.Range(1, max) * k, 1);
-            if (i > 0)
-            {
-                if (signPrev)
-                {
-                    if (numbers[i - 1] == 1 && numberSigns > 2)
-                        example.Append(signs[Random.Range(0, 2)]);
-                    else
-                    {
-                        sign = signs[Random.Range(0, numberSigns)];
-                        if (sign == signs[2] || sign == signs[3])
-                            signPrev = false;
-                    }
+        var brExampleSb = new System.Text.StringBuilder();
+        string brExampleStr = "";
+        bool bracket = false;
+        int bracketOpenLastID = 0;
+        int bracketCloseLastID = -2;
+        double number = 0;
+        string sign = "";
 
-                    numbers[i] = System.Math.Round(Random.Range(2, max) * k, 1);
-                }
-                else
-                {
-                    sign = signs[Random.Range(0, 2)];
-                    signPrev = true;
-                }
-                example.Append(sign);
-            }   
-            example.Append(numbers[i].ToString());
+
+        if (n > 2 && Random.Range(1, 6) == 5) //скобочка начало
+        {
+            bracket = true;
+            example.Append("(");
+            exp.text += "(";
+            bracketOpenLastID = 0;
         }
-        
-        exp.text = example.ToString();
+        for (int i = 0; i < n; i++)
+        {
+            number = System.Math.Round(k * Random.Range(1, max), 1);
+            if (i > 0 && (!bracket || bracket && i - bracketOpenLastID > 0))
+            {
+                example.Append(sign);
+                exp.text += sign;
+            }
+
+            example.Append(number); //обычное число
+            exp.text += number.ToString();
+            if (bracket)
+            {
+                if (i - bracketOpenLastID > 0)
+                    brExampleSb.Append(sign);
+                brExampleSb.Append(number);
+            }
+
+            if (bracket && (Random.Range(1, 6) > 1 && i - bracketOpenLastID > 1 || i == n - 1))//скобочка конец
+            {
+                bracket = false;
+                example.Append(")");
+                exp.text += ")";
+                brExampleStr = brExampleSb.ToString();
+                brExampleSb.Clear();
+                bracketCloseLastID = i;
+            }
+            if (i < n - 1)// знак
+
+            {
+
+                switch (Random.Range(0, numberSigns))
+                {
+                    case 0:
+                        sign = " + ";
+                        break;
+                    case 1:
+                        sign = " - ";
+
+                        break;
+                    case 2:
+                        sign = " * ";
+
+                        break;
+                    case 3:
+                        sign = " / ";
+                        break;
+                }
+            }
+            if (!bracket && i < n - 2 && bracketCloseLastID != i && Random.Range(1, 6) == 5) //скобочка начало
+            {
+                bracket = true;
+                example.Append(sign);
+                exp.text += sign;
+                example.Append("(");
+                exp.text += "(";
+                brExampleSb.Clear();
+                bracketOpenLastID = i + 1;
+            }
+        }
         return Calculate.ToCalculate(example.ToString());
     }
 

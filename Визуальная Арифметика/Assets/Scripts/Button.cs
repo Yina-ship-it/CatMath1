@@ -63,6 +63,7 @@ public class Button : MonoBehaviour
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
         GameObject.Find("Text").GetComponent<Text>().text = DataHolder.languageText[PlayerPrefs.GetInt("Language"), DataHolder.Game - 1];
+
     }
     public void OnClickAnswerGame2(int id)
     {
@@ -73,6 +74,7 @@ public class Button : MonoBehaviour
     }
     public void Difficulty(int difficulty)
     {
+        PlayerPrefs.SetInt("Difficulty", difficulty);
         switch (DataHolder.Game)
         {
             case 1:
