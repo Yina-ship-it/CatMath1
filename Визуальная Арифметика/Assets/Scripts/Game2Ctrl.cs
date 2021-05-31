@@ -29,7 +29,7 @@ public class Game2Ctrl : MonoBehaviour
 
     void Start()
     {
-        back = GameObject.Find("Back");
+        back = GameObject.Find("Pause");
         canvas = GameObject.Find("Canvas");
         count = 0;
         DataHolder.Score = count;

@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
         {
             dtime = Time.deltaTime / time;
             GetComponent<Image>().fillAmount -= dtime;
-            GetComponent<Image>().color += new Color(dtime / 2, -dtime / 2, -dtime / 2);
+            GetComponent<Image>().color += new Color(dtime , -dtime, -dtime);
             if (GetComponent<Image>().fillAmount == 0f)
                 GameObject.Find("EventSystem").GetComponent<Game1Ctrl>().lose = true;
         }
