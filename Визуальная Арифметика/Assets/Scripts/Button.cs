@@ -128,7 +128,7 @@ public class Button : MonoBehaviour
                 DataHolder.numbers = 7;
                 break;
             case 3:
-                DataHolder.timeRemember = 1.5f;
+                DataHolder.timeRemember = 1;
                 DataHolder.maxNumber = 20;
                 DataHolder.numbers = 10;
                 break;
