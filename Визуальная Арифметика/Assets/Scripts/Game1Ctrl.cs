@@ -48,6 +48,8 @@ public class Game1Ctrl : MonoBehaviour
 
     void NextExp()
     {
+        GameObject.Find("Timer").GetComponent<Image>().fillAmount = 100f;
+        GameObject.Find("Timer").GetComponent<Image>().color = new Color(255,255,255);
         FirstExp.text = "";
         SecondExp.text = "";
         count++;
