@@ -20,20 +20,24 @@ public class Button : MonoBehaviour
 
     public void NextScene(int sceneNumber)
     {
+        PlayTap();
         SceneManager.LoadScene(sceneNumber);
     }
 
     public void OnClickAnswerGame1(int id)
     {
         if (eventSystem.GetComponent<Game1Ctrl>().sign == id)
+        {
+            PlayTap();
             eventSystem.GetComponent<Game1Ctrl>().next = true;
+        }
         else
             eventSystem.GetComponent<Game1Ctrl>().lose = true;
     }
 
     public void OnClickPause(bool timer)
-    {      
-
+    {
+        PlayTap();
         DataHolder.pauseTimer = timer;
         if(timer)
             GameObject.Find("Timer").GetComponent<Timer>().pause = true;
@@ -44,6 +48,7 @@ public class Button : MonoBehaviour
 
     public void Select(int Game)
     {
+        PlayTap();
         Prefab = Instantiate(gameObjects);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
@@ -53,12 +58,14 @@ public class Button : MonoBehaviour
 
     public void PrefabDestroy(string prefab)
     {
+        PlayTap();
         Prefab = GameObject.Find(prefab);
         Destroy(Prefab);
     }
 
     public void Explanations()
     {
+        PlayTap();
         Prefab = Instantiate(gameObjects);
         Prefab.transform.SetParent(canvas.transform);
         Prefab.transform.localScale = new Vector2(1f, 1f);
@@ -68,12 +75,17 @@ public class Button : MonoBehaviour
     public void OnClickAnswerGame2(int id)
     {
         if (eventSystem.GetComponent<Game2Ctrl>().CorrectAnswerID == id)
+        {
+            PlayTap();
             eventSystem.GetComponent<Game2Ctrl>().next = true;
+        }
+
         else
             eventSystem.GetComponent<Game2Ctrl>().lose = true;
     }
     public void Difficulty(int difficulty)
     {
+        PlayTap();
         PlayerPrefs.SetInt("Difficulty", difficulty);
         switch (DataHolder.Game)
         {
@@ -138,5 +150,11 @@ public class Button : MonoBehaviour
     public void DeleteRwcord()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    private void PlayTap()
+    {
+        if(PlayerPrefs.GetInt("Sound") == 0)
+            GameObject.Find("SoundManager").GetComponent<AudioSource>().Play();
     }
 }
