@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "053eeb5e0405",
         "name": "com.NadkusannoeApple.CatMath",
-        "processId": 20735,
+        "processId": 4259,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -18,6 +18,12 @@
             "deviceId": "053eeb5e0405",
             "name": "com.NadkusannoeApple.CatMath",
             "processId": 20735,
+            "exited": false
+        },
+        {
+            "deviceId": "053eeb5e0405",
+            "name": "com.NadkusannoeApple.CatMath",
+            "processId": 4259,
             "exited": false
         }
     ],
