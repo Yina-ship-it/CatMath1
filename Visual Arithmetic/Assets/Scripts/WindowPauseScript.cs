@@ -4,16 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class WindowPauseScript : MonoBehaviour
 {
+    private GameObject Pause;
     public void Start()
     {
-        GameObject.Find("Pause").SetActive(false);
+        Pause = GameObject.Find("Pause");
+        Pause.SetActive(false);
     }
     public void OnClickResume()
     {
         if (DataHolder.pauseTimer)
             GameObject.Find("Timer").GetComponent<Timer>().pause = false;
-        GameObject.Find("Pause").SetActive(true);
         Destroy(gameObject);
+        Pause.SetActive(true);
     }
 
     public void RestartScene()
