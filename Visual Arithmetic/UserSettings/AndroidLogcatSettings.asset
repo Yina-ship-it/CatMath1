@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "053eeb5e0405",
+    "m_SelectedDeviceId": "CQ3000DJZY",
     "m_SelectedPackage": {
-        "deviceId": "053eeb5e0405",
+        "deviceId": "CQ3000DJZY",
         "name": "com.NadkusannoeApple.CatMath",
-        "processId": 10209,
+        "processId": 25715,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -36,6 +36,12 @@
             "deviceId": "053eeb5e0405",
             "name": "com.NadkusannoeApple.CatMath",
             "processId": 10209,
+            "exited": false
+        },
+        {
+            "deviceId": "CQ3000DJZY",
+            "name": "com.NadkusannoeApple.CatMath",
+            "processId": 25715,
             "exited": false
         }
     ],
