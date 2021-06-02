@@ -146,7 +146,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.NadcusannoeYabloko.CatMath
+    Android: com.NadkusannoeApple.CatMath
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -709,11 +709,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: af325277-514e-453f-a20c-77fab1309dad
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: "\u0412\u0438\u0437\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0410\u0440\u0438\u0444\u043C\u0435\u0442\u0438\u043A\u0430"
+  organizationId: maksim1212125
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   virtualTexturingSupportEnabled: 0
