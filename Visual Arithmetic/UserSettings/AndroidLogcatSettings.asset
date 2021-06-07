@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "CQ3000DJZY",
+    "m_SelectedDeviceId": "5tg68ts8gqyhobzd",
     "m_SelectedPackage": {
-        "deviceId": "CQ3000DJZY",
+        "deviceId": "5tg68ts8gqyhobzd",
         "name": "com.NadkusannoeApple.CatMath",
-        "processId": 22141,
+        "processId": 20512,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,18 +12,18 @@
             "deviceId": "5tg68ts8gqyhobzd",
             "name": "com.NadkusannoeApple.CatMath",
             "processId": 2180,
-            "exited": true
+            "exited": false
         },
         {
             "deviceId": "5tg68ts8gqyhobzd",
             "name": "com.NadkusannoeApple.CatMath",
             "processId": 20882,
-            "exited": true
+            "exited": false
         },
         {
             "deviceId": "5tg68ts8gqyhobzd",
-            "name": "com.miui.home",
-            "processId": 19216,
+            "name": "com.NadkusannoeApple.CatMath",
+            "processId": 20512,
             "exited": false
         },
         {
@@ -48,12 +48,6 @@
             "deviceId": "CQ3000DJZY",
             "name": "com.NadkusannoeApple.CatMath",
             "processId": 25715,
-            "exited": false
-        },
-        {
-            "deviceId": "CQ3000DJZY",
-            "name": "com.NadkusannoeApple.CatMath",
-            "processId": 22141,
             "exited": false
         }
     ],

@@ -13,16 +13,17 @@ public class Languge : MonoBehaviour
 
     public void OnClickLanguage()
     {
-        if(PlayerPrefs.GetInt("Language") == languagesSprite.Length - 1)
+        if(PlayerPrefs.GetInt("Language") == 1)
         {
             PlayerPrefs.SetInt("Language", 0);
             GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[0];
         }
         else
         {
-            PlayerPrefs.SetInt("Language", PlayerPrefs.GetInt("Language") + 1);
-            GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[PlayerPrefs.GetInt("Language")];
+            PlayerPrefs.SetInt("Language",1);
+            GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[1];
         }
-
+        if (PlayerPrefs.GetInt("Sound") == 0)
+            GameObject.Find("SoundManager").GetComponent<AudioSource>().Play();
     }
 }

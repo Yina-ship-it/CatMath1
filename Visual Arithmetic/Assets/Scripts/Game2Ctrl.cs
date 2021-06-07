@@ -99,9 +99,9 @@ public class Game2Ctrl : MonoBehaviour
             }
             yield return new WaitForSeconds(timeRemember);
             output.text = "";
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
-        output.text = "";
+        output.text = "?";
         CorrectAnswerID = Random.Range(0, 4);
         back.SetActive(true);
         panel.SetActive(true);

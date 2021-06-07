@@ -20,12 +20,16 @@ public class WindowPauseScript : MonoBehaviour
 
     public void RestartScene()
     {
+        if (PlayerPrefs.GetInt("Sound") == 0)
+            GameObject.Find("SoundManager").GetComponent<AudioSource>().Play();
         Destroy(gameObject);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void NextScene(int sceneNumber)
     {
+        if (PlayerPrefs.GetInt("Sound") == 0)
+            GameObject.Find("SoundManager").GetComponent<AudioSource>().Play();
         Destroy(gameObject);
         SceneManager.LoadScene(sceneNumber);
     }
