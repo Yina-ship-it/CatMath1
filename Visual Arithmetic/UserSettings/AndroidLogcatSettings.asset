@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "5tg68ts8gqyhobzd",
         "name": "com.NadkusannoeApple.CatMath",
-        "processId": 20512,
+        "processId": 17844,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -27,6 +27,24 @@
             "exited": false
         },
         {
+            "deviceId": "5tg68ts8gqyhobzd",
+            "name": "com.NadkusannoeApple.CatMath",
+            "processId": 15425,
+            "exited": false
+        },
+        {
+            "deviceId": "5tg68ts8gqyhobzd",
+            "name": "com.NadkusannoeApple.CatMath",
+            "processId": 15772,
+            "exited": false
+        },
+        {
+            "deviceId": "5tg68ts8gqyhobzd",
+            "name": "com.NadkusannoeApple.CatMath",
+            "processId": 17844,
+            "exited": false
+        },
+        {
             "deviceId": "053eeb5e0405",
             "name": "com.NadkusannoeApple.CatMath",
             "processId": 20735,
@@ -42,6 +60,12 @@
             "deviceId": "053eeb5e0405",
             "name": "com.NadkusannoeApple.CatMath",
             "processId": 10209,
+            "exited": false
+        },
+        {
+            "deviceId": "053eeb5e0405",
+            "name": "com.NadkusannoeApple.CatMath",
+            "processId": 27801,
             "exited": false
         },
         {

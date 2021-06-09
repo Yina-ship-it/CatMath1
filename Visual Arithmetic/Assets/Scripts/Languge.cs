@@ -6,22 +6,23 @@ using UnityEngine.UI;
 public class Languge : MonoBehaviour
 {
     public Sprite[] languagesSprite;
+    private string key = "Language";
     void Start()
     {
-        GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[PlayerPrefs.GetInt("Language")];
+        GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[PlayerPrefs.GetInt(key)];
     }
 
     public void OnClickLanguage()
     {
-        if(PlayerPrefs.GetInt("Language") == 1)
+        if(PlayerPrefs.GetInt(key) == 0)
         {
-            PlayerPrefs.SetInt("Language", 0);
-            GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[0];
+            PlayerPrefs.SetInt(key, 1);
+            GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[1];
         }
         else
         {
-            PlayerPrefs.SetInt("Language",1);
-            GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[1];
+            PlayerPrefs.SetInt(key,0);
+            GameObject.Find("Language").GetComponent<Image>().sprite = languagesSprite[0];
         }
         if (PlayerPrefs.GetInt("Sound") == 0)
             GameObject.Find("SoundManager").GetComponent<AudioSource>().Play();
