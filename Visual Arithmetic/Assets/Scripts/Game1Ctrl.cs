@@ -71,27 +71,33 @@ public class Game1Ctrl : MonoBehaviour
         int bracketOpenLastID = 0;
         int bracketCloseLastID = -2;
         double number = 0;
+        double numberVrem = 0;
         string sign = "";
+        int idAdekvatnosti = 0;
+        bool[] helps = new bool[3];
 
 
-        if (n > 2 && Random.Range(1, 6) == 5) //скобочка начало
+        if (numberSigns > 2 && n > 2 && Random.Range(1, 6) == 5) //скобочка начало
         {
+            helps[0] = true;
+            helps[1] = true;
             bracket = true;
             example.Append("(");
-            exp.text += "(";
             bracketOpenLastID = 0;
         }
         for (int i = 0; i < n; i++)
         {
             number = System.Math.Round(k * Random.Range(1, max), 1);
+            while (number == numberVrem && sign != " * " && sign != " / ")
+                number = System.Math.Round(k * Random.Range(1, max), 1);
+            while (numberSigns > 2 && number == 1 && (sign == " * " || sign == " / "))
+                number = System.Math.Round(k * Random.Range(2, max), 1);
+            numberVrem = number;
             if (i > 0 && (!bracket || bracket && i - bracketOpenLastID > 0))
-            {
                 example.Append(sign);
-                exp.text += sign;
-            }
-
+            if (number == 1)
+                helps[2] = true;
             example.Append(number); //обычное число
-            exp.text += number.ToString();
             if (bracket)
             {
                 if (i - bracketOpenLastID > 0)
@@ -99,11 +105,35 @@ public class Game1Ctrl : MonoBehaviour
                 brExampleSb.Append(number);
             }
 
-            if (bracket && (Random.Range(1, 6) > 1 && i - bracketOpenLastID > 1 || i == n - 1))//скобочка конец
+            if (bracket && (Random.Range(1, 6) > 1 && i - bracketOpenLastID > 1 || i == n - 1) || helps[0] && i == n - 2)//скобочка конец
             {
+                if (helps[1] && !helps[0])
+                {
+                    if (i == n - 1)
+                    {
+                        switch (Random.Range(1, numberSigns))
+                        {
+                            case 1:
+                                example.Insert(idAdekvatnosti, " - ");
+                                break;
+                            case 2:
+                                example.Insert(idAdekvatnosti, " * ");
+                                break;
+                            case 3:
+                                example.Insert(idAdekvatnosti, " / ");
+                                break;
+                        }
+                        helps[1] = false;
+                    }
+                    else
+                    {
+                        example.Insert(idAdekvatnosti, " + ");
+                    }
+                }
+                helps[2] = false;
+                helps[0] = false;
                 bracket = false;
                 example.Append(")");
-                exp.text += ")";
                 brExampleStr = brExampleSb.ToString();
                 brExampleSb.Clear();
                 bracketCloseLastID = i;
@@ -111,36 +141,99 @@ public class Game1Ctrl : MonoBehaviour
             if (i < n - 1)// знак
 
             {
-
                 switch (Random.Range(0, numberSigns))
                 {
                     case 0:
-                        sign = " + ";
+                        if (!bracket && helps[1] && numberSigns > 2)
+                        {
+                            switch (Random.Range(2, numberSigns))
+                            {
+                                case 2:
+                                    sign = " * ";
+                                    break;
+                                case 3:
+                                    sign = " / ";
+                                    break;
+                            }
+                            helps[1] = false;
+                        }
+
+                        else
+                            sign = " + ";
                         break;
                     case 1:
-                        sign = " - ";
+                        if (!bracket && helps[1] && numberSigns > 2)
+                        {
+                            switch (Random.Range(2, numberSigns))
+                            {
+                                case 2:
+                                    sign = " * ";
+                                    break;
+                                case 3:
+                                    sign = " / ";
+                                    break;
+                            }
+                            helps[1] = false;
+                        }
 
+                        else
+                            sign = " - ";
                         break;
                     case 2:
-                        sign = " * ";
-
+                        if (helps[2])
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    sign = " + ";
+                                    break;
+                                case 1:
+                                    sign = " - ";
+                                    break;
+                            }
+                        else
+                            sign = " * ";
                         break;
                     case 3:
-                        sign = " / ";
+                        if (helps[2])
+                            switch (Random.Range(0, 2))
+                            {
+                                case 0:
+                                    sign = " + ";
+                                    break;
+                                case 1:
+                                    sign = " - ";
+                                    break;
+                            }
+                        else
+                            sign = " / ";
                         break;
                 }
             }
             if (!bracket && i < n - 2 && bracketCloseLastID != i && Random.Range(1, 6) == 5) //скобочка начало
             {
                 bracket = true;
-                example.Append(sign);
-                exp.text += sign;
+                if (sign == " + ")
+                {
+                    if (numberSigns > 2)
+                    {
+                        helps[1] = true;
+                        idAdekvatnosti = example.Length;
+                    }
+                    else
+                    {
+                        sign = " - ";
+                        example.Append(sign);
+                    }
+
+                }
+                else
+                    example.Append(sign);
                 example.Append("(");
-                exp.text += "(";
                 brExampleSb.Clear();
                 bracketOpenLastID = i + 1;
             }
         }
+        exp.text = example.ToString();
         return Calculate.ToCalculate(example.ToString());
     }
 
